@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_app_ui/Components/favourites_card.dart';
 import 'package:provider/provider.dart';
 import 'package:hotel_app_ui/Provider/book_mark_provider.dart';
 
@@ -8,10 +10,19 @@ class BookMarkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF9F9F9),
       body: Consumer<BookMarkProvider>(
         builder: (context, bookmark, child) {
           if (bookmark.favorites.isEmpty) {
-            return const Center(child: Text("No favorites yet"));
+            return Center(
+              child: Text(
+                "No favorites yet",
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            );
           }
           return SafeArea(
             child: Column(
@@ -30,7 +41,13 @@ class BookMarkScreen extends StatelessWidget {
                         ),
                         child: Image.asset("assets/images/arrowleft.png"),
                       ),
-                      Text("Book Marks"),
+                      Text(
+                        "Book Marks",
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
                       Container(
                         height: 40,
                         width: 40,
@@ -50,14 +67,13 @@ class BookMarkScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final hotel = bookmark.favorites[index];
                       return ListTile(
-                        leading: Image.asset(
-                          hotel.image,
-                          width: 60,
-                          fit: BoxFit.cover,
+                        title: FavoritesCard(
+                          imageAsset: hotel.image,
+                          title: hotel.title,
+                          location: hotel.location,
+                          price: hotel.price,
+                          rating: hotel.rating,
                         ),
-                        title: Text(hotel.title),
-                        subtitle: Text("${hotel.location} • ${hotel.rating} ⭐"),
-                        trailing: Text("\$${hotel.price}/night"),
                       );
                     },
                   ),

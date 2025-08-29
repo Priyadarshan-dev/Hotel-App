@@ -33,19 +33,11 @@ class PopularHotelCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 2,
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
         ),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: screenWidth * 0.025),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
@@ -61,25 +53,28 @@ class PopularHotelCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 10,
-                          left: 10,
-                          top: 20,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              title,
-                              style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      right: screenWidth * 0.025,
+                      left: screenWidth * 0.025,
+                      top: screenHeight * 0.025,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: GoogleFonts.inter(
+                              fontSize: screenWidth * 0.037, // ~14px
+                              fontWeight: FontWeight.w500,
+                              // overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(width: 10),
+                          ),
+                        ),
+                        SizedBox(width: screenWidth * 0.02),
+                        Row(
+                          children: [
                             Image.asset(
                               "assets/images/Icon1.png",
                               height: screenHeight * 0.02,
@@ -88,27 +83,33 @@ class PopularHotelCard extends StatelessWidget {
                             Text(
                               rating,
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 12,
+                                fontSize: screenWidth * 0.032, // ~12px
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
                   // Location
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    padding: EdgeInsets.only(
+                      left: screenWidth * 0.025,
+                      top: screenHeight * 0.01,
+                    ),
                     child: Row(
                       children: [
-                        Text(
-                          location,
-                          style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: Color(0xFF939393),
+                        Expanded(
+                          child: Text(
+                            location,
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w400,
+                              fontSize: screenWidth * 0.032, // ~12px
+                              color: Color(0xFF939393),
+                              // overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                       ],
@@ -117,14 +118,30 @@ class PopularHotelCard extends StatelessWidget {
 
                   // Price
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 20),
-                    child: Text(
-                      '$price/night',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Color(0xFF4C4DDC),
-                      ),
+                    padding: EdgeInsets.only(
+                      left: screenWidth * 0.025,
+                      top: screenHeight * 0.02,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${price}',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontWeight: FontWeight.w700,
+                            fontSize: screenWidth * 0.037, // ~14px
+                            color: Color(0xFF4C4DDC),
+                          ),
+                        ),
+                        SizedBox(width: screenWidth * 0.01),
+                        Text(
+                          "/night",
+                          style: GoogleFonts.inter(
+                            fontSize: screenWidth * 0.030,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF939393),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -49,15 +49,7 @@ class _HotelCardState extends State<HotelCard> {
         width: widget.screenWidth * 0.7139,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 0),
-            ),
-          ],
+           color: Color(0xFFFFFFFF),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,26 +110,30 @@ class _HotelCardState extends State<HotelCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        widget.title,
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: Colors.black,
+                      Expanded(
+                        child: Text(
+                          widget.title,
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontSize: widget.screenWidth * 0.037, // ~14px
+                            color: Colors.black,
+                            // overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
+                      SizedBox(width: widget.screenWidth * 0.02),
                       Row(
                         children: [
                           Image.asset(
                             "assets/images/Icon1.png",
                             height: widget.screenHeight * 0.02,
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(width: widget.screenWidth * 0.02),
                           Text(
                             widget.rating,
                             style: GoogleFonts.plusJakartaSans(
                               fontWeight: FontWeight.w700,
-                              fontSize: 12,
+                              fontSize: widget.screenWidth * 0.032, // ~12px
                             ),
                           ),
                         ],
@@ -145,41 +141,44 @@ class _HotelCardState extends State<HotelCard> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: widget.screenHeight * 0.005),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15),
+                  padding: EdgeInsets.only(left: 15),
                   child: Row(
                     children: [
-                      Text(
-                        widget.location,
-                        style: GoogleFonts.inter(
-                          color: Color(0xFF939393),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
+                      Expanded(
+                        child: Text(
+                          widget.location,
+                          style: GoogleFonts.inter(
+                            color: Color(0xFF939393),
+                            fontWeight: FontWeight.w400,
+                            fontSize: widget.screenWidth * 0.032, // ~12px
+                            // overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: widget.screenHeight * 0.01),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 15),
+                  padding: EdgeInsets.only(left: 15, top: 15),
                   child: Row(
                     children: [
                       Text(
                         '\$${widget.price}',
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.w700,
-                          fontSize: 14,
+                          fontSize: widget.screenWidth * 0.037, // ~14px
                           color: Color(0xFF4C4DDC),
                         ),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width: widget.screenWidth * 0.01),
                       Text(
                         '/night',
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.w400,
-                          fontSize: 12,
+                          fontSize: widget.screenWidth * 0.032, // ~12px
                           color: Color(0xFF939393),
                         ),
                       ),

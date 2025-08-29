@@ -8,19 +8,26 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Color(0xFFF9F9F9),
       body: SafeArea(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+              padding: EdgeInsets.only(
+                left: screenWidth * 0.05, // ~20px
+                right: screenWidth * 0.05, // ~20px
+                top: screenHeight * 0.03, // ~30px
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 40,
-                    width: 40,
+                    height: screenWidth * 0.1, // ~40px
+                    width: screenWidth * 0.1, // ~40px
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Color(0xFFECECEC),
@@ -31,12 +38,12 @@ class ScheduleScreen extends StatelessWidget {
                     "Schedule",
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.042, // ~16px
                     ),
                   ),
                   Container(
-                    height: 40,
-                    width: 40,
+                    height: screenWidth * 0.1, // ~40px
+                    width: screenWidth * 0.1, // ~40px
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Color(0xFFECECEC),
@@ -46,10 +53,14 @@ class ScheduleScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.025), // ~20px
             Calendar(),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: EdgeInsets.only(
+                left: screenWidth * 0.05, // ~20px
+                right: screenWidth * 0.05, // ~20px
+                top: screenHeight * 0.025, // ~20px
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -57,28 +68,28 @@ class ScheduleScreen extends StatelessWidget {
                     "My Schedule",
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.042, // ~16px
                     ),
                   ),
                   Text(
                     "See all",
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
-                      fontSize: 14,
+                      fontSize: screenWidth * 0.037, // ~14px
                       color: Color(0xFF4C4DDC),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.025), // ~20px
             ScheduleCard(
               title: "The Aston Vill Hotel",
               date: "19 March 2025",
               price: "\$200.7",
               imagePath: "assets/images/Property1.png",
             ),
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.025), // ~20px
             ScheduleCard(
               title: "Golden Palace Hotel",
               date: "25 March 2024",
