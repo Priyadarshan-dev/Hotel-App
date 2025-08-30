@@ -9,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xFFF9F9F9),
+      backgroundColor: const Color(0xFFF9F9F9),
       body: SafeArea(
         child: Column(
           children: [
@@ -23,17 +23,23 @@ class ProfileScreen extends StatelessWidget {
                     width: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Color(0xFFECECEC),
+                      border: Border.all(color: Colors.grey.shade300),
                     ),
                     child: Image.asset("assets/images/arrowleft.png"),
                   ),
-                  Text("Profile"),
+                  Text(
+                    "Profile",
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w600,
+                      fontSize: screenWidth * 0.042, // ~16px
+                    ),
+                  ),
                   Container(
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Color(0xFFECECEC),
+                      border: Border.all(color: Colors.grey.shade300),
                     ),
                     child: Image.asset("assets/images/Icon.png"),
                   ),
@@ -51,7 +57,13 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text("Darshan"),
+            Text(
+              "Darshan",
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w600,
+                fontSize: screenWidth * 0.042, // ~16px
+              ),
+            ),
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(
@@ -61,21 +73,29 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                  color: Color(0xFFF6F6F6),
+                  color: Color(0xFFFFFFFF),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
                     buildMenuItem(
                       context,
                       'Edit Profile',
-                      "assets/images/profile.png",
+                      "assets/images/profile1.png",
                       "assets/images/arrowright.png",
                       () {},
                     ),
                     buildMenuItem(
                       context,
                       'Payment',
-                      "assets/images/profile.png",
+                      "assets/images/payment.png",
                       "assets/images/arrowright.png",
                       () {},
                     ),
@@ -92,21 +112,29 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                  color: Color(0xFFF6F6F6),
+                  color: Color(0xFFFFFFFF),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
                     buildMenuItem(
                       context,
                       'Notifications',
-                      "assets/images/profile.png",
+                      "assets/images/notification1.png",
                       "assets/images/arrowright.png",
                       () {},
                     ),
                     buildMenuItem(
                       context,
                       'Security',
-                      "assets/images/profile.png",
+                      "assets/images/security.png",
                       "assets/images/arrowright.png",
                       () {},
                     ),
@@ -123,14 +151,22 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                  color: Color(0xFFF6F6F6),
+                  color: Color(0xFFFFFFFF),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
                     buildMenuItem(
                       context,
                       'Help',
-                      "assets/images/profile.png",
+                      "assets/images/faqs.png",
                       "assets/images/arrowright.png",
                       () {},
                     ),
@@ -154,14 +190,22 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                  color: Color(0xFFF6F6F6),
+                  color: Color(0xFFFFFFFF),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
                     buildMenuItem(
                       context,
                       'Logout',
-                      "assets/images/profile.png",
+                      "assets/images/Logout.png",
                       "assets/images/arrowright.png",
                       () {},
                     ),
@@ -193,7 +237,7 @@ Widget buildMenuItem(
     ),
     title: Text(
       title,
-      style: GoogleFonts.sen(
+      style: GoogleFonts.inter(
         fontWeight: FontWeight.w400,
         fontSize: screenWidth * 0.035,
       ),
@@ -206,4 +250,3 @@ Widget buildMenuItem(
     onTap: onTap,
   );
 }
- 

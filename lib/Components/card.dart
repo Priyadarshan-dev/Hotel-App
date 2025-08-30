@@ -34,12 +34,6 @@ class _HotelCardState extends State<HotelCard> {
   Color iconColor = Colors.white;
   bool isFavorite = false;
 
-  void changeColor() {
-    setState(() {
-      iconColor = iconColor == Colors.white ? Colors.redAccent : Colors.white;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,7 +43,15 @@ class _HotelCardState extends State<HotelCard> {
         width: widget.screenWidth * 0.7139,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-           color: Color(0xFFFFFFFF),
+          color: const Color(0xFFFFFFFF),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 6,
+              offset: const Offset(0, 0),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,10 +94,25 @@ class _HotelCardState extends State<HotelCard> {
                             bookmark.addFavorite(hotel);
                           }
                         },
-                        child: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav ? Colors.redAccent : Colors.white,
-                          size: 28,
+                        child: Container(
+                          height: widget.screenHeight * 0.038,
+                          width: widget.screenWidth * 0.082,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.white,
+                          ),
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            height: widget.screenHeight * 0.024,
+                            width: widget.screenWidth * 0.051,
+                            child: Image.asset(
+                              isFav
+                                  ? "assets/images/heart1.png"
+                                  : "assets/images/heart.png",
+                              color: isFav ? Colors.redAccent : Colors.grey,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
                       );
                     },

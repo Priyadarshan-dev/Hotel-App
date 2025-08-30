@@ -5,17 +5,25 @@ import 'package:hotel_app_ui/Components/popular_hotel_card.dart';
 import 'package:hotel_app_ui/Product%20Details/details_screen.dart';
 import 'package:hotel_app_ui/Product%20Details/details_screen2.dart';
 import 'package:hotel_app_ui/Product%20Details/details_screen3.dart';
+import 'package:hotel_app_ui/Screens/hotel_screen.dart';
+import 'package:hotel_app_ui/Screens/popular_hotel_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedCategoryIndex = 0;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xFFF9F9F9),
+      backgroundColor: const Color(0xFFF9F9F9),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -68,13 +76,13 @@ class HomeScreen extends StatelessWidget {
                     Stack(
                       children: [
                         Container(
-                          height: 35,
-                          width: 35,
+                          height: screenWidth * 0.1,
+                          width: screenWidth * 0.1,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Image.asset("assets/images/notification.png")
+                          child: Image.asset("assets/images/notification.png"),
                         ),
                         Positioned(
                           right: 8,
@@ -101,140 +109,229 @@ class HomeScreen extends StatelessWidget {
                   top: screenHeight * 0.04,
                   right: screenWidth * 0.02,
                 ),
-                child: SingleChildScrollView(
+                child: // Add this state variable at the top of your state class
+                SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.01,
-                          horizontal: screenWidth * 0.02,
-                        ),
-                        height: screenHeight * 0.05,
-                        width: screenWidth * 0.22,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/house2.png",
-                              color: Color(0xFF939393),
-                              height: screenHeight * 0.025,
-                            ),
-                            SizedBox(width: screenWidth * 0.02),
-                            Text(
-                              "Home",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize:
-                                    screenWidth *
-                                    0.037, // ~14px on most devices
+                      // Home Category
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedCategoryIndex = 0;
+                            print("Selected index: $_selectedCategoryIndex");
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.02,
+                          ),
+                          height: screenHeight * 0.05,
+                          width: screenWidth * 0.22,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: _selectedCategoryIndex == 0
+                                ? Color(0xFF4C4DDC)
+                                : Color(0xFFFFFFFF),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/house2.png",
+                                color: _selectedCategoryIndex == 0
+                                    ? Colors.white
+                                    : Color(0xFF939393),
+                                height: screenHeight * 0.025,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Text(
+                                "Home",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: screenWidth * 0.037,
+                                  color: _selectedCategoryIndex == 0
+                                      ? Colors.white
+                                      : Color(0xFF939393),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.01,
-                          horizontal: screenWidth * 0.02,
-                        ),
-                        height: screenHeight * 0.05,
-                        width: screenWidth * 0.3,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/building-3.png",
-                              height: screenHeight * 0.025,
-                              color: Color(0xFF939393),
-                            ),
-                            SizedBox(width: screenWidth * 0.02),
-                            Text(
-                              "Homestay",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize:
-                                    screenWidth *
-                                    0.037, // ~14px on most devices
+                      // Homestay Category
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedCategoryIndex = 1;
+                            print("Selected index: $_selectedCategoryIndex");
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.02,
+                          ),
+                          height: screenHeight * 0.05,
+                          width: screenWidth * 0.3,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: _selectedCategoryIndex == 1
+                                ? Color(0xFF4C4DDC)
+                                : Color(0xFFFFFFFF),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/building-3.png",
+                                color: _selectedCategoryIndex == 1
+                                    ? Colors.white
+                                    : Color(0xFF939393),
+                                height: screenHeight * 0.025,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Text(
+                                "Homestay",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: screenWidth * 0.037,
+                                  color: _selectedCategoryIndex == 1
+                                      ? Colors.white
+                                      : Color(0xFF939393),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.01,
-                          horizontal: screenWidth * 0.02,
-                        ),
-                        height: screenHeight * 0.05,
-                        width: screenWidth * 0.22,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/buildings.png",
-                              color: Color(0xFF939393),
-                              height: screenHeight * 0.025,
-                            ),
-                            SizedBox(width: screenWidth * 0.02),
-                            Text(
-                              "Apart",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize:
-                                    screenWidth *
-                                    0.037, // ~14px on most devices
+                      // Apart Category
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedCategoryIndex = 2;
+                            print("Selected index: $_selectedCategoryIndex");
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.02,
+                          ),
+                          height: screenHeight * 0.05,
+                          width: screenWidth * 0.22,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: _selectedCategoryIndex == 2
+                                ? Color(0xFF4C4DDC)
+                                : Color(0xFFFFFFFF),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/buildings.png",
+                                color: _selectedCategoryIndex == 2
+                                    ? Colors.white
+                                    : Color(0xFF939393),
+                                height: screenHeight * 0.025,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Text(
+                                "Apart",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: screenWidth * 0.037,
+                                  color: _selectedCategoryIndex == 2
+                                      ? Colors.white
+                                      : Color(0xFF939393),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.01,
-                          horizontal: screenWidth * 0.02,
-                        ),
-                        height: screenHeight * 0.05,
-                        width: screenWidth * 0.22,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/house2.png",
-                              color: Color(0xFF939393),
-                              height: screenHeight * 0.025,
-                            ),
-                            SizedBox(width: screenWidth * 0.02),
-                            Text(
-                              "Home",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize:
-                                    screenWidth *
-                                    0.037, // ~14px on most devices
+                      // Villa Category (Changed from duplicate Home)
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedCategoryIndex = 3;
+                            print("Selected index: $_selectedCategoryIndex");
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenWidth * 0.02,
+                          ),
+                          height: screenHeight * 0.05,
+                          width: screenWidth * 0.22,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: _selectedCategoryIndex == 3
+                                ? Color(0xFF4C4DDC)
+                                : Color(0xFFFFFFFF),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/house2.png", // You might want a different icon for Villa
+                                color: _selectedCategoryIndex == 3
+                                    ? Colors.white
+                                    : Color(0xFF939393),
+                                height: screenHeight * 0.025,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Text(
+                                "Villa", // Changed from "Home" to avoid confusion
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: screenWidth * 0.037,
+                                  color: _selectedCategoryIndex == 3
+                                      ? Colors.white
+                                      : Color(0xFF939393),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -259,12 +356,23 @@ class HomeScreen extends StatelessWidget {
                         fontSize: screenWidth * 0.042, // ~16px on most devices
                       ),
                     ),
-                    Text(
-                      "See all",
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w500,
-                        fontSize: screenWidth * 0.037, // ~14px on most devices
-                        color: Color(0xFF4C4DDC),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HotelScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "See all",
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize:
+                              screenWidth * 0.037, // ~14px on most devices
+                          color: Color(0xFF4C4DDC),
+                        ),
                       ),
                     ),
                   ],
@@ -373,12 +481,23 @@ class HomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      "See all",
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w500,
-                        fontSize: screenWidth * 0.037, // ~14px on most devices
-                        color: Color(0xFF4C4DDC),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PopularHotelScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "See all",
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize:
+                              screenWidth * 0.037, // ~14px on most devices
+                          color: Color(0xFF4C4DDC),
+                        ),
                       ),
                     ),
                   ],
@@ -404,87 +523,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-/**
- import 'package:flutter/material.dart';
-
-class LocationCard extends StatelessWidget {
-  const LocationCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Left side - Location
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Current location",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.blue,
-                      size: 18,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      "Wallace, Australia",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black.withOpacity(0.8),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-
-            // Right side - Notification bell
-            Stack(
-              children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.notifications_none,
-                    color: Colors.black,
-                  ),
-                ),
-                Positioned(
-                  right: 8,
-                  top: 6,
-                  child: Container(
-                    height: 8,
-                    width: 8,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
- */

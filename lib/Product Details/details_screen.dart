@@ -24,14 +24,19 @@ class DetailsScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: screenWidth * 0.1, // ~40px
-                      width: screenWidth * 0.1, // ~40px
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Color(0xFFECECEC),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: screenWidth * 0.1, // ~40px
+                        width: screenWidth * 0.1, // ~40px
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        child: Image.asset("assets/images/arrowleft.png"),
                       ),
-                      child: Image.asset("assets/images/arrowleft.png"),
                     ),
                     Text(
                       "Detail",
@@ -45,7 +50,7 @@ class DetailsScreen extends StatelessWidget {
                       width: screenWidth * 0.1, // ~40px
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Color(0xFFECECEC),
+                        border: Border.all(color: Colors.grey.shade300),
                       ),
                       child: Image.asset("assets/images/Icon.png"),
                     ),
@@ -293,7 +298,7 @@ class DetailsScreen extends StatelessWidget {
 
               Padding(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.06, // ~50px
+                  top: screenHeight * 0.04, // ~50px
                   bottom: screenHeight * 0.02, // Add bottom padding
                 ),
                 child: GestureDetector(

@@ -21,16 +21,23 @@ class ScheduleCard extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      height: screenHeight * 0.12375, // 99px
-      width: screenWidth * 0.9083, // 327px
-      padding: EdgeInsets.all(screenWidth * 0.04), // ~16px
+      height: screenHeight * 0.12375,
+      width: screenWidth * 0.9083,
+      padding: EdgeInsets.all(screenWidth * 0.04),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 6,
+            offset: const Offset(0, 0),
+          ),
+        ],
       ),
       child: Row(
         children: [
-          // Image on left side
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
@@ -40,8 +47,7 @@ class ScheduleCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: screenWidth * 0.03), // ~12px
-          // Text content
+          SizedBox(width: screenWidth * 0.03),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,40 +59,63 @@ class ScheduleCard extends StatelessWidget {
                     Text(
                       title,
                       style: GoogleFonts.inter(
-                        fontSize: screenWidth * 0.037, // ~14px
+                        fontSize: screenWidth * 0.037,
                         fontWeight: FontWeight.w500,
-                        // overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.005), // ~4px
-                    Text(
-                      date,
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.032, // ~12px
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF939393),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    SizedBox(height: screenHeight * 0.005),
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/calendar.png",
+                          height: 20,
+                          color: Color(0xFF939393),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          date,
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.032,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF939393),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Text(
-                  price,
-                  style: GoogleFonts.inter(
-                    fontSize: screenWidth * 0.037, // ~14px
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF4C4DDC),
+                Padding(
+                  padding: EdgeInsets.only(top: screenHeight * 0.01),
+                  child: Row(
+                    children: [
+                      Text(
+                        '${price}',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontWeight: FontWeight.w700,
+                          fontSize: screenWidth * 0.037,
+                          color: Color(0xFF4C4DDC),
+                        ),
+                      ),
+                      SizedBox(width: screenWidth * 0.01),
+                      Text(
+                        "/night",
+                        style: GoogleFonts.inter(
+                          fontSize: screenWidth * 0.032,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF939393),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-
-          SizedBox(width: screenWidth * 0.02), // ~8px
+          SizedBox(width: screenWidth * 0.02),
           Image.asset(
             "assets/images/arrowright.png",
-            width: screenWidth * 0.06, // ~24px
-            height: screenWidth * 0.06, // ~24px
+            width: screenWidth * 0.06,
+            height: screenWidth * 0.06,
             fit: BoxFit.contain,
           ),
         ],

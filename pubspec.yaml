@@ -38,6 +38,8 @@ dependencies:
   table_calendar: ^3.2.0
   provider: 
   google_nav_bar: ^5.0.7
+  lottie: 
+  flutter_slidable: ^4.0.1
   
 dev_dependencies:
   flutter_test:

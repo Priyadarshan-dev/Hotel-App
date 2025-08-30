@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PopularHotelCard extends StatelessWidget {
+class SelectCard extends StatelessWidget {
   final String imageAsset;
   final String title;
   final String location;
@@ -9,7 +9,7 @@ class PopularHotelCard extends StatelessWidget {
   final String rating;
   final VoidCallback? onTap;
 
-  const PopularHotelCard({
+  const SelectCard({
     super.key,
     required this.imageAsset,
     required this.title,
@@ -29,10 +29,9 @@ class PopularHotelCard extends StatelessWidget {
       child: Container(
         height: screenHeight * 0.135,
         width: screenWidth * 0.9083,
-        margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Color(0xFFFFFFFF),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -56,7 +55,6 @@ class PopularHotelCard extends StatelessWidget {
                 ),
               ),
             ),
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +63,7 @@ class PopularHotelCard extends StatelessWidget {
                     padding: EdgeInsets.only(
                       right: screenWidth * 0.025,
                       left: screenWidth * 0.025,
-                      top: screenHeight * 0.025,
+                      top: screenHeight * 0.020,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,9 +72,8 @@ class PopularHotelCard extends StatelessWidget {
                           child: Text(
                             title,
                             style: GoogleFonts.inter(
-                              fontSize: screenWidth * 0.037, // ~14px
+                              fontSize: screenWidth * 0.037,
                               fontWeight: FontWeight.w500,
-                              // overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
@@ -91,7 +88,7 @@ class PopularHotelCard extends StatelessWidget {
                             Text(
                               rating,
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: screenWidth * 0.032, // ~12px
+                                fontSize: screenWidth * 0.032,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -100,8 +97,6 @@ class PopularHotelCard extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // Location
                   Padding(
                     padding: EdgeInsets.only(
                       left: screenWidth * 0.025,
@@ -114,29 +109,26 @@ class PopularHotelCard extends StatelessWidget {
                             location,
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.w400,
-                              fontSize: screenWidth * 0.032, // ~12px
+                              fontSize: screenWidth * 0.032,
                               color: Color(0xFF939393),
-                              // overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-
-                  // Price
                   Padding(
                     padding: EdgeInsets.only(
                       left: screenWidth * 0.025,
-                      top: screenHeight * 0.02,
+                      top: screenHeight * 0.01,
                     ),
                     child: Row(
                       children: [
                         Text(
-                          '${price}',
+                          "\$$price",
                           style: GoogleFonts.plusJakartaSans(
                             fontWeight: FontWeight.w700,
-                            fontSize: screenWidth * 0.037, // ~14px
+                            fontSize: screenWidth * 0.037,
                             color: Color(0xFF4C4DDC),
                           ),
                         ),
@@ -144,7 +136,7 @@ class PopularHotelCard extends StatelessWidget {
                         Text(
                           "/night",
                           style: GoogleFonts.inter(
-                            fontSize: screenWidth * 0.030,
+                            fontSize: screenWidth * 0.032,
                             fontWeight: FontWeight.w400,
                             color: Color(0xFF939393),
                           ),
