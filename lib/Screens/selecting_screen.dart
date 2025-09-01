@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_app_ui/Components/select_card.dart';
+import 'package:provider/provider.dart';
+import 'package:hotel_app_ui/Provider/schedule_provider.dart';
 
-class SelectingScreen extends StatelessWidget {
+class SelectingScreen extends StatefulWidget {
   final List<DateTime> selectedDates;
-  final Function(Map<String, dynamic>)? onCardSelected;
 
-  const SelectingScreen({
-    super.key,
-    required this.selectedDates,
-    this.onCardSelected,
-  });
+  const SelectingScreen({super.key, required this.selectedDates});
+
+  @override
+  State<SelectingScreen> createState() => _SelectingScreenState();
+}
+
+class _SelectingScreenState extends State<SelectingScreen> {
+  Map<String, dynamic>? selectedCard; // store selected card temporarily
 
   @override
   Widget build(BuildContext context) {
+    final scheduleProvider = Provider.of<ScheduleProvider>(
+      context,
+      listen: false,
+    );
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -22,6 +30,7 @@ class SelectingScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            // ---- AppBar Row ----
             Padding(
               padding: EdgeInsets.only(
                 left: screenWidth * 0.05,
@@ -39,7 +48,6 @@ class SelectingScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.grey.shade300),
-                        
                       ),
                       child: Image.asset("assets/images/arrowleft.png"),
                     ),
@@ -67,6 +75,7 @@ class SelectingScreen extends StatelessWidget {
             ),
             SizedBox(height: screenHeight * 0.04),
 
+            // ---- Hotel Cards ----
             SelectCard(
               imageAsset: "assets/images/Property1.png",
               title: "The Aston Vill Hotel",
@@ -74,17 +83,16 @@ class SelectingScreen extends StatelessWidget {
               price: "200.7",
               rating: "5.0",
               onTap: () {
-                final cardData = {
-                  'title': "The Aston Vill Hotel",
-                  'date': selectedDates.isNotEmpty
-                      ? "${selectedDates.first.day}/${selectedDates.first.month}/${selectedDates.first.year}"
-                      : "No date selected",
-                  'price': "\$200.7",
-                  'image': "assets/images/Property1.png",
-                };
-                if (onCardSelected != null) {
-                  onCardSelected!(cardData);
-                }
+                setState(() {
+                  selectedCard = {
+                    'title': "The Aston Vill Hotel",
+                    'date': widget.selectedDates.isNotEmpty
+                        ? "${widget.selectedDates.first.day}/${widget.selectedDates.first.month}/${widget.selectedDates.first.year}"
+                        : "No date selected",
+                    'price': "\$200.7",
+                    'image': "assets/images/Property1.png",
+                  };
+                });
               },
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -95,17 +103,16 @@ class SelectingScreen extends StatelessWidget {
               price: "175.9",
               rating: "5.0",
               onTap: () {
-                final cardData = {
-                  'title': "Golden Palace Hotel",
-                  'date': selectedDates.isNotEmpty
-                      ? "${selectedDates.first.day}/${selectedDates.first.month}/${selectedDates.first.year}"
-                      : "No date selected",
-                  'price': "\$175.9",
-                  'image': "assets/images/Property2.png",
-                };
-                if (onCardSelected != null) {
-                  onCardSelected!(cardData);
-                }
+                setState(() {
+                  selectedCard = {
+                    'title': "Golden Palace Hotel",
+                    'date': widget.selectedDates.isNotEmpty
+                        ? "${widget.selectedDates.first.day}/${widget.selectedDates.first.month}/${widget.selectedDates.first.year}"
+                        : "No date selected",
+                    'price': "\$175.9",
+                    'image': "assets/images/Property2.png",
+                  };
+                });
               },
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -116,37 +123,51 @@ class SelectingScreen extends StatelessWidget {
               price: "200.7",
               rating: "5.0",
               onTap: () {
-                final cardData = {
-                  'title': "The Luxury Resort",
-                  'date': selectedDates.isNotEmpty
-                      ? "${selectedDates.first.day}/${selectedDates.first.month}/${selectedDates.first.year}"
-                      : "No date selected",
-                  'price': "\$200.7",
-                  'image': "assets/images/Property3.png",
-                };
-                if (onCardSelected != null) {
-                  onCardSelected!(cardData);
-                }
+                setState(() {
+                  selectedCard = {
+                    'title': "The Luxury Resort",
+                    'date': widget.selectedDates.isNotEmpty
+                        ? "${widget.selectedDates.first.day}/${widget.selectedDates.first.month}/${widget.selectedDates.first.year}"
+                        : "No date selected",
+                    'price': "\$200.7",
+                    'image': "assets/images/Property3.png",
+                  };
+                });
               },
             ),
+
             const Spacer(),
+
+            // ---- Add To Schedule Button ----
             Padding(
               padding: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: GestureDetector(
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("The Hotel Added to Schedule!"),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
+                  if (selectedCard != null) {
+                    scheduleProvider.addScheduledCard(selectedCard!);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "${selectedCard!['title']} added to schedule!",
+                        ),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please select a hotel card first"),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 },
                 child: Container(
                   height: screenHeight * 0.07,
                   width: screenWidth * 0.9083,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: Color(0xFF4C4DDC),
+                    color: const Color(0xFF4C4DDC),
                   ),
                   child: Center(
                     child: Text(
@@ -167,3 +188,4 @@ class SelectingScreen extends StatelessWidget {
     );
   }
 }
+

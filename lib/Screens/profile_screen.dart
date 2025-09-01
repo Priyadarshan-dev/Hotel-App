@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_app_ui/Screens/edit_profile_screen.dart';
+import 'package:hotel_app_ui/Screens/help_screen.dart';
+import 'package:hotel_app_ui/Screens/my_bookings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -90,53 +93,29 @@ class ProfileScreen extends StatelessWidget {
                       'Edit Profile',
                       "assets/images/profile1.png",
                       "assets/images/arrowright.png",
-                      () {},
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditProfilePage(),
+                          ),
+                        );
+                      },
                     ),
+
                     buildMenuItem(
                       context,
-                      'Payment',
+                      'My Bookings',
                       "assets/images/payment.png",
                       "assets/images/arrowright.png",
-                      () {},
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.only(
-                left: screenWidth * 0.075,
-                right: screenWidth * 0.075,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                  color: Color(0xFFFFFFFF),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                      offset: const Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    buildMenuItem(
-                      context,
-                      'Notifications',
-                      "assets/images/notification1.png",
-                      "assets/images/arrowright.png",
-                      () {},
-                    ),
-                    buildMenuItem(
-                      context,
-                      'Security',
-                      "assets/images/security.png",
-                      "assets/images/arrowright.png",
-                      () {},
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookingsScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -168,40 +147,15 @@ class ProfileScreen extends StatelessWidget {
                       'Help',
                       "assets/images/faqs.png",
                       "assets/images/arrowright.png",
-                      () {},
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HelpScreen(),
+                          ),
+                        );
+                      },
                     ),
-                    buildMenuItem(
-                      context,
-                      'Dark Mode',
-                      "assets/images/profile.png",
-                      "assets/images/arrowright.png",
-                      () {},
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.only(
-                left: screenWidth * 0.075,
-                right: screenWidth * 0.075,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                  color: Color(0xFFFFFFFF),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                      offset: const Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
                     buildMenuItem(
                       context,
                       'Logout',
@@ -213,6 +167,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),

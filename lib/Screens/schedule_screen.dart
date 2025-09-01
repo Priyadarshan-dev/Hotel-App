@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_app_ui/Components/calendar.dart';
 import 'package:hotel_app_ui/Components/schedule_card.dart';
 import 'package:hotel_app_ui/Screens/selecting_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:hotel_app_ui/Provider/schedule_provider.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
@@ -12,11 +14,11 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
-  List<DateTime> selectedDates = [];
-  List<Map<String, dynamic>> scheduledCards = [];
+  List<DateTime> _localSelectedDates = [];
 
   @override
   Widget build(BuildContext context) {
+    final scheduleProvider = Provider.of<ScheduleProvider>(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -35,7 +37,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () {},
                     child: Container(
                       height: screenWidth * 0.1,
                       width: screenWidth * 0.1,
@@ -55,21 +57,19 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      if (selectedDates.isEmpty) {
+                      if (_localSelectedDates.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Please select a date first")),
                         );
                       } else {
+                        // Save dates to provider
+                        scheduleProvider.setSelectedDates(_localSelectedDates);
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => SelectingScreen(
-                              selectedDates: selectedDates,
-                              onCardSelected: (card) {
-                                setState(() {
-                                  scheduledCards.add(card);
-                                });
-                              },
+                              selectedDates: _localSelectedDates,
                             ),
                           ),
                         );
@@ -92,7 +92,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             Calendar(
               onDatesSelected: (dates) {
                 setState(() {
-                  selectedDates = dates;
+                  _localSelectedDates = dates;
                 });
               },
             ),
@@ -125,13 +125,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             SizedBox(height: screenHeight * 0.02),
 
-            if (scheduledCards.isNotEmpty)
+            if (scheduleProvider.scheduledCards.isNotEmpty)
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                  itemCount: scheduledCards.length,
+                  itemCount: scheduleProvider.scheduledCards.length,
                   itemBuilder: (context, index) {
-                    final card = scheduledCards[index];
+                    final card = scheduleProvider.scheduledCards[index];
                     return Padding(
                       padding: EdgeInsets.only(bottom: screenHeight * 0.015),
                       child: ScheduleCard(

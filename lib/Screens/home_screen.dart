@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_app_ui/Categories/appartment.dart';
+import 'package:hotel_app_ui/Categories/home_stay.dart';
+import 'package:hotel_app_ui/Categories/resort.dart';
 import 'package:hotel_app_ui/Components/card.dart';
 import 'package:hotel_app_ui/Components/popular_hotel_card.dart';
 import 'package:hotel_app_ui/Product%20Details/details_screen.dart';
@@ -170,13 +173,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      // Homestay Category
                       GestureDetector(
                         onTap: () {
                           setState(() {
                             _selectedCategoryIndex = 1;
                             print("Selected index: $_selectedCategoryIndex");
                           });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomeStay()),
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(
@@ -232,6 +238,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             _selectedCategoryIndex = 2;
                             print("Selected index: $_selectedCategoryIndex");
                           });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Appartment(),
+                            ),
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(
@@ -287,6 +299,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             _selectedCategoryIndex = 3;
                             print("Selected index: $_selectedCategoryIndex");
                           });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Resort()),
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(
@@ -313,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                "assets/images/house2.png", // You might want a different icon for Villa
+                                "assets/images/house2.png",
                                 color: _selectedCategoryIndex == 3
                                     ? Colors.white
                                     : Color(0xFF939393),
@@ -321,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: screenWidth * 0.02),
                               Text(
-                                "Villa", // Changed from "Home" to avoid confusion
+                                "Resort",
                                 style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w500,
                                   fontSize: screenWidth * 0.037,
@@ -507,12 +523,20 @@ class _HomeScreenState extends State<HomeScreen> {
               // Popular Hotel Card
               Padding(
                 padding: EdgeInsets.only(top: screenHeight * 0.01),
-                child: PopularHotelCard(
-                  imageAsset: "assets/images/Property1.png",
-                  title: "Asteria Hotel",
-                  location: "Willora NT 0872, Australia",
-                  price: "\$165.3",
-                  rating: "5.0",
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailsScreen()),
+                    );
+                  },
+                  child: PopularHotelCard(
+                    imageAsset: "assets/images/Property1.png",
+                    title: "Asteria Hotel",
+                    location: "Willora NT 0872, Australia",
+                    price: "\$165.3",
+                    rating: "5.0",
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.02),
